@@ -56,7 +56,7 @@ const SoundCheck = () => {
           </thead>
 
           <tbody>
-            {[...Array(9)].map((_, index) => (
+            {[...Array(९)].map((_, index) => (
               <tr
                 key={index}
                 className="bg-blue-300 dark:bg-gray-800"   // 🔵 whole row blue
@@ -66,11 +66,11 @@ const SoundCheck = () => {
                 </td>
 
                 <td className="border-2 border-gray-400 dark:border-gray-600 text-center font-bold text-sm">
-                  {index === 1 ? "सौ. अंबिका लक्ष्मण पखाले" : index === 8 ? "नोटा" : ""}
+                  {index === १ ? "सौ. अंबिका लक्ष्मण पखाले" : index === 8 ? "नोटा" : ""}
                 </td>
 
                 <td className="border-2 border-gray-400 dark:border-gray-600 text-center">
-                  {index === 1 ? (
+                  {index === १ ? (
                     <img src="/user.png" className="w-12 h-12 mx-auto object-cover" />
                   ) : (
                     <div className="w-10 h-10 mx-auto" />
@@ -78,7 +78,7 @@ const SoundCheck = () => {
                 </td>
 
                 <td className="border-2 border-gray-400 dark:border-gray-600 text-center">
-                  {index === 1 ? (
+                  {index === १ ? (
                     <img src="/symbol-bartan.png" className="w-10 h-10 mx-auto object-contain" />
                   ) : (
                     <div className="w-10 h-10 mx-auto" />
@@ -98,10 +98,10 @@ const SoundCheck = () => {
                 <td className="border-2 border-gray-400 dark:border-gray-600 text-center bg-white dark:bg-gray-800">
                   <button
                     onClick={() =>
-                      index === 1 ? playButtonSound(index) : playOtherButtonSound(index)
+                      index === १ ? playButtonSound(index) : playOtherButtonSound(index)
                     }
                     className={`h-7 rounded-full ${
-                      index === 1 ? "bg-green-500 w-14" : "bg-blue-700 w-14"
+                      index === १ ? "bg-green-500 w-14" : "bg-blue-700 w-14"
                     }`}
                   />
                 </td>
