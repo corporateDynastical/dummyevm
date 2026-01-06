@@ -62,7 +62,7 @@ const SoundCheck = () => {
                 className="bg-blue-300 dark:bg-gray-800"   // 🔵 whole row blue
               >
                 <td className="border-2 border-gray-400 dark:border-gray-600 text-center font-bold text-sm">
-                  {index + 1}
+                  {index + १}
                 </td>
 
                 <td className="border-2 border-gray-400 dark:border-gray-600 text-center font-bold text-sm">
