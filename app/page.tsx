@@ -1,24 +1,37 @@
 "use client";
 import { useRef, useState } from "react";
 
-// 👉 converts 1 → १ , 2 → २ ... 9 → ९
-const toMarathi = (num: number) =>
-  num
-    .toString()
-    .replace(/[0-9]/g, (d) => "०१२३४५६७८९"[parseInt(d)]);
-
 const SoundCheck = () => {
   const buttonSoundRef = useRef<HTMLAudioElement | null>(null);
   const otherButtonSoundRef = useRef<HTMLAudioElement | null>(null);
   const [activeRow, setActiveRow] = useState<number | null>(null);
 
+  // Convert English numbers → Marathi numbers
+  const toMarathi = (num: number) =>
+    num
+      .toString()
+      .replace(/0/g, "०")
+      .replace(/1/g, "१")
+      .replace(/2/g, "२")
+      .replace(/3/g, "३")
+      .replace(/4/g, "४")
+      .replace(/5/g, "५")
+      .replace(/6/g, "६")
+      .replace(/7/g, "७")
+      .replace(/8/g, "८")
+      .replace(/9/g, "९");
+
   const playButtonSound = (index: number) => {
-    buttonSoundRef.current?.play();
+    try {
+      buttonSoundRef.current?.play();
+    } catch {}
     setActiveRow(index);
   };
 
   const playOtherButtonSound = (index: number) => {
-    otherButtonSoundRef.current?.play();
+    try {
+      otherButtonSoundRef.current?.play();
+    } catch {}
     setActiveRow(index);
   };
 
@@ -44,12 +57,12 @@ const SoundCheck = () => {
         <table className="w-full border-2 border-gray-400 dark:border-gray-600 table-fixed">
           <thead>
             <tr className="bg-gray-100 dark:bg-gray-800">
-              <th className="border-2 px-1 py-1 text-center text-xs font-bold">क्रमांक</th>
-              <th className="border-2 px-1 py-1 text-center text-xs font-bold">नाव</th>
-              <th className="border-2 px-1 py-1 text-center text-xs font-bold">फोटो</th>
-              <th className="border-2 px-1 py-1 text-center text-xs font-bold">निशाणी</th>
-              <th className="border-2 px-1 py-1 text-center text-xs font-bold">बत्ती</th>
-              <th className="border-2 px-1 py-1 text-center text-xs font-bold">बटन</th>
+              <th className="border-2 border-gray-400 dark:border-gray-600 px-1 py-1 text-center text-xs font-bold">क्रमांक</th>
+              <th className="border-2 border-gray-400 dark:border-gray-600 px-1 py-1 text-center text-xs font-bold">नाव</th>
+              <th className="border-2 border-gray-400 dark:border-gray-600 px-1 py-1 text-center text-xs font-bold">फोटो</th>
+              <th className="border-2 border-gray-400 dark:border-gray-600 px-1 py-1 text-center text-xs font-bold">निशाणी</th>
+              <th className="border-2 border-gray-400 dark:border-gray-600 px-1 py-1 text-center text-xs font-bold">बत्ती</th>
+              <th className="border-2 border-gray-400 dark:border-gray-600 px-1 py-1 text-center text-xs font-bold">बटन</th>
             </tr>
           </thead>
 
@@ -57,18 +70,18 @@ const SoundCheck = () => {
             {[...Array(9)].map((_, index) => (
               <tr key={index} className="bg-blue-300 dark:bg-gray-800">
                 {/* क्रमांक */}
-                <td className="border-2 text-center font-bold text-sm">
+                <td className="border-2 border-gray-400 dark:border-gray-600 text-center font-bold text-sm">
                   {toMarathi(index + 1)}
                 </td>
 
                 {/* नाव */}
-                <td className="border-2 text-center font-bold text-sm">
-                  {index === 0 ? "सौ. अंबिका लक्ष्मण पखाले" : index === 8 ? "नोटा" : ""}
+                <td className="border-2 border-gray-400 dark:border-gray-600 text-center font-bold text-sm">
+                  {index === 1 ? "सौ. अंबिका लक्ष्मण पखाले" : index === 8 ? "नोटा" : ""}
                 </td>
 
                 {/* फोटो */}
-                <td className="border-2 text-center">
-                  {index === 0 ? (
+                <td className="border-2 border-gray-400 dark:border-gray-600 text-center">
+                  {index === 1 ? (
                     <img src="/user.png" className="w-12 h-12 mx-auto object-cover" />
                   ) : (
                     <div className="w-10 h-10 mx-auto" />
@@ -76,8 +89,8 @@ const SoundCheck = () => {
                 </td>
 
                 {/* निशाणी */}
-                <td className="border-2 text-center">
-                  {index === 0 ? (
+                <td className="border-2 border-gray-400 dark:border-gray-600 text-center">
+                  {index === 1 ? (
                     <img src="/symbol-bartan.png" className="w-10 h-10 mx-auto object-contain" />
                   ) : (
                     <div className="w-10 h-10 mx-auto" />
@@ -85,7 +98,7 @@ const SoundCheck = () => {
                 </td>
 
                 {/* बत्ती */}
-                <td className="border-2 text-center bg-white dark:bg-gray-800">
+                <td className="border-2 border-gray-400 dark:border-gray-600 text-center bg-white dark:bg-gray-800">
                   <div
                     className={`w-5 h-5 rounded-full mx-auto ${
                       activeRow === index ? "bg-red-600" : "bg-gray-300 dark:bg-gray-500"
@@ -94,13 +107,13 @@ const SoundCheck = () => {
                 </td>
 
                 {/* बटन */}
-                <td className="border-2 text-center bg-white dark:bg-gray-800">
+                <td className="border-2 border-gray-400 dark:border-gray-600 text-center bg-white dark:bg-gray-800">
                   <button
                     onClick={() =>
-                      index === 0 ? playButtonSound(index) : playOtherButtonSound(index)
+                      index === 1 ? playButtonSound(index) : playOtherButtonSound(index)
                     }
-                    className={`rounded-full w-10 h-6 md:w-14 md:h-7 ${
-                      index === 0 ? "bg-green-500" : "bg-blue-700"
+                    className={`h-7 rounded-full ${
+                      index === 1 ? "bg-green-500 w-14" : "bg-blue-700 w-14"
                     }`}
                   />
                 </td>
