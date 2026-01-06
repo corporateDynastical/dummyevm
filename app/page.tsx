@@ -1,26 +1,24 @@
 "use client";
 import { useRef, useState } from "react";
 
+// 👉 converts 1 → १ , 2 → २ ... 9 → ९
+const toMarathi = (num: number) =>
+  num
+    .toString()
+    .replace(/[0-9]/g, (d) => "०१२३४५६७८९"[parseInt(d)]);
+
 const SoundCheck = () => {
-  const buttonSoundRef = useRef<HTMLAudioElement | null>(null); // sound1
-  const otherButtonSoundRef = useRef<HTMLAudioElement | null>(null); // sound2
+  const buttonSoundRef = useRef<HTMLAudioElement | null>(null);
+  const otherButtonSoundRef = useRef<HTMLAudioElement | null>(null);
   const [activeRow, setActiveRow] = useState<number | null>(null);
 
   const playButtonSound = (index: number) => {
-    try {
-      buttonSoundRef.current?.play();
-    } catch (e) {
-      console.warn("sound play failed", e);
-    }
+    buttonSoundRef.current?.play();
     setActiveRow(index);
   };
 
   const playOtherButtonSound = (index: number) => {
-    try {
-      otherButtonSoundRef.current?.play();
-    } catch (e) {
-      console.warn("sound play failed", e);
-    }
+    otherButtonSoundRef.current?.play();
     setActiveRow(index);
   };
 
@@ -46,47 +44,48 @@ const SoundCheck = () => {
         <table className="w-full border-2 border-gray-400 dark:border-gray-600 table-fixed">
           <thead>
             <tr className="bg-gray-100 dark:bg-gray-800">
-              <th className="border-2 border-gray-400 dark:border-gray-600 px-1 py-1 text-center text-xs font-bold">क्रमांक</th>
-              <th className="border-2 border-gray-400 dark:border-gray-600 px-1 py-1 text-center text-xs font-bold">नाव</th>
-              <th className="border-2 border-gray-400 dark:border-gray-600 px-1 py-1 text-center text-xs font-bold">फोटो</th>
-              <th className="border-2 border-gray-400 dark:border-gray-600 px-1 py-1 text-center text-xs font-bold">निशाणी</th>
-              <th className="border-2 border-gray-400 dark:border-gray-600 px-1 py-1 text-center text-xs font-bold">बत्ती</th>
-              <th className="border-2 border-gray-400 dark:border-gray-600 px-1 py-1 text-center text-xs font-bold">बटन</th>
+              <th className="border-2 px-1 py-1 text-center text-xs font-bold">क्रमांक</th>
+              <th className="border-2 px-1 py-1 text-center text-xs font-bold">नाव</th>
+              <th className="border-2 px-1 py-1 text-center text-xs font-bold">फोटो</th>
+              <th className="border-2 px-1 py-1 text-center text-xs font-bold">निशाणी</th>
+              <th className="border-2 px-1 py-1 text-center text-xs font-bold">बत्ती</th>
+              <th className="border-2 px-1 py-1 text-center text-xs font-bold">बटन</th>
             </tr>
           </thead>
 
           <tbody>
-            {[...Array(९)].map((_, index) => (
-              <tr
-                key={index}
-                className="bg-blue-300 dark:bg-gray-800"   // 🔵 whole row blue
-              >
-                <td className="border-2 border-gray-400 dark:border-gray-600 text-center font-bold text-sm">
-                  {index + १}
+            {[...Array(9)].map((_, index) => (
+              <tr key={index} className="bg-blue-300 dark:bg-gray-800">
+                {/* क्रमांक */}
+                <td className="border-2 text-center font-bold text-sm">
+                  {toMarathi(index + 1)}
                 </td>
 
-                <td className="border-2 border-gray-400 dark:border-gray-600 text-center font-bold text-sm">
-                  {index === १ ? "सौ. अंबिका लक्ष्मण पखाले" : index === 8 ? "नोटा" : ""}
+                {/* नाव */}
+                <td className="border-2 text-center font-bold text-sm">
+                  {index === 0 ? "सौ. अंबिका लक्ष्मण पखाले" : index === 8 ? "नोटा" : ""}
                 </td>
 
-                <td className="border-2 border-gray-400 dark:border-gray-600 text-center">
-                  {index === १ ? (
+                {/* फोटो */}
+                <td className="border-2 text-center">
+                  {index === 0 ? (
                     <img src="/user.png" className="w-12 h-12 mx-auto object-cover" />
                   ) : (
                     <div className="w-10 h-10 mx-auto" />
                   )}
                 </td>
 
-                <td className="border-2 border-gray-400 dark:border-gray-600 text-center">
-                  {index === १ ? (
+                {/* निशाणी */}
+                <td className="border-2 text-center">
+                  {index === 0 ? (
                     <img src="/symbol-bartan.png" className="w-10 h-10 mx-auto object-contain" />
                   ) : (
                     <div className="w-10 h-10 mx-auto" />
                   )}
                 </td>
 
-                {/* 🔴 LIGHT — NOT BLUE */}
-                <td className="border-2 border-gray-400 dark:border-gray-600 text-center bg-white dark:bg-gray-800">
+                {/* बत्ती */}
+                <td className="border-2 text-center bg-white dark:bg-gray-800">
                   <div
                     className={`w-5 h-5 rounded-full mx-auto ${
                       activeRow === index ? "bg-red-600" : "bg-gray-300 dark:bg-gray-500"
@@ -94,14 +93,14 @@ const SoundCheck = () => {
                   ></div>
                 </td>
 
-                {/* 🔵 BUTTON — NOT BLUE BACKGROUND CELL */}
-                <td className="border-2 border-gray-400 dark:border-gray-600 text-center bg-white dark:bg-gray-800">
+                {/* बटन */}
+                <td className="border-2 text-center bg-white dark:bg-gray-800">
                   <button
                     onClick={() =>
-                      index === १ ? playButtonSound(index) : playOtherButtonSound(index)
+                      index === 0 ? playButtonSound(index) : playOtherButtonSound(index)
                     }
-                    className={`h-7 rounded-full ${
-                      index === १ ? "bg-green-500 w-14" : "bg-blue-700 w-14"
+                    className={`rounded-full w-10 h-6 md:w-14 md:h-7 ${
+                      index === 0 ? "bg-green-500" : "bg-blue-700"
                     }`}
                   />
                 </td>
